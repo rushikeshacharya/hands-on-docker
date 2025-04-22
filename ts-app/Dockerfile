@@ -24,4 +24,9 @@ COPY --from=builder /home/build/package.* /home/app/
 
 RUN npm install --omit=dev
 EXPOSE 8000
+ENV PORT=8000 
+#add security vulnerabilities
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nodejs
+USER nodejs
 CMD ["npm", "start"]
