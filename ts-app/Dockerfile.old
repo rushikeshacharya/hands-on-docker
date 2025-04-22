@@ -1,0 +1,16 @@
+ARG NODE_IMAGE=node:current-alpine3.21
+
+FROM ${NODE_IMAGE} AS stage
+
+WORKDIR /home/app
+
+COPY package.* .
+COPY tsconfig.json .
+
+RUN npm install
+
+COPY src/ src/
+
+RUN npm run build
+
+CMD ["npm", "start"]
